@@ -10,6 +10,9 @@ namespace _24_8_17_Client
 {
     class Program
     {
+        private static TcpClient client = null;
+        private static StreamReader reader = null;
+        private static StreamWriter writer = null;
         static void Main(string[] args)
         {
             Program program = new Program();
@@ -18,23 +21,22 @@ namespace _24_8_17_Client
 
         private void Run()
         {
-            TcpClient client = new TcpClient("localhost", 5000);
-            StreamReader sr = new StreamReader(client.GetStream());
-            StreamWriter sw = new StreamWriter(client.GetStream());
+            client = new TcpClient("localhost", 5000);
+            reader = new StreamReader(client.GetStream());
+            writer = new StreamWriter(client.GetStream());
+            writer.AutoFlush = true;
 
             try
             {
                 string data = Console.ReadLine();
-                sw.WriteLine(data);
-                sw.Flush();
+                writer.WriteLine(data);
                 while (data != null && data != "")
                 {
-                    data = sr.ReadLine();
+                    data = reader.ReadLine();
                     Console.WriteLine(data);
 
                     data = Console.ReadLine();
-                    sw.WriteLine(data);
-                    sw.Flush();
+                    writer.WriteLine(data);
                 }
                 client.Close();
             }
