@@ -11,9 +11,9 @@ namespace _24_8_17_Client
 {
     class Program
     {
-        //private static TcpClient client = null;
-        //private static StreamReader reader = null;
-        //private static StreamWriter writer = null;
+        private static TcpClient client = null;
+        private static StreamReader reader = null;
+        private static StreamWriter writer = null;
 
         static void Main(string[] args)
         {
@@ -23,6 +23,8 @@ namespace _24_8_17_Client
 
         private void Run()
         {
+            //using Sockets
+
             try
             {
                 Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -38,15 +40,16 @@ namespace _24_8_17_Client
                     int i = str.IndexOf('\0');
                     str = str.Substring(0, i);
                     Console.WriteLine(str);
-                    
+
                 }
-                //Console.ReadKey();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
             }
+
+            //using Tcp
 
             //client = new TcpClient("localhost", 5000);
             //reader = new StreamReader(client.GetStream());
